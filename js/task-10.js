@@ -10,42 +10,42 @@
 
 // + Створи функцію destroyBoxes(), яка очищає вміст div#boxes, у такий спосіб видаляючи всі створені елементи.
 
+const boxes = document.querySelector("#boxes");
+const create = document.querySelector("[data-create]");
+const destroy = document.querySelector("[data-destroy]");
+const input = document.querySelector("input");
+
+const BASE_SIZE = 30;
+const STEP = 10;
+
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
     .padStart(6, 0)}`;
 }
 
-const boxes = document.querySelector("#boxes");
-
-const create = document.querySelector("[data-create]");
-const destroy = document.querySelector("[data-destroy]");
-const input = document.querySelector("input");
-
-let width = 30;
-let height = 30;
-
 function createBoxes(amount) {
-  create.addEventListener("click", () => {
-    amount = input.value;
+  const fragment = document.createDocumentFragment();
 
-    for (let i = 0; amount > i; i += 1) {
-      const createDiv = document.createElement("div");
-      boxes.append(createDiv);
+  for (let i = 0; i < amount; i += 1) {
+    const size = BASE_SIZE + i * STEP;
+    const div = document.createElement("div");
+    div.style.width = `${size}px`;
+    div.style.height = `${size}px`;
+    div.style.backgroundColor = getRandomHexColor();
+    fragment.appendChild(div);
+  }
 
-      createDiv.style.width = `${width}px`;
-      createDiv.style.height = `${height}px`;
-      createDiv.style.backgroundColor = getRandomHexColor();
-      width += 10;
-      height += 10;
-    }
-  });
+  boxes.appendChild(fragment);
 }
-createBoxes();
 
 function destroyBoxes() {
-  destroy.addEventListener("click", () => {
-    boxes.innerHTML = "";
-  });
+  boxes.innerHTML = "";
 }
-destroyBoxes();
+
+create.addEventListener("click", () => {
+  const amount = Number(input.value);
+  createBoxes(amount);
+});
+
+destroy.addEventListener("click", destroyBoxes);

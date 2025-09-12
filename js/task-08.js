@@ -16,12 +16,14 @@ let obj = {}
 form.addEventListener('submit', (event) => {
 	event.preventDefault(); // disable default submit
 	// validation form
-	if (form.elements.email.value === '' || form.elements.password.value === '') {
-		alert('Заповни поля')
-	} else {
-    // create object
-    obj[form.elements.email.name] = form.elements.email.value;
-    obj[form.elements.password.name] = form.elements.password.value;
+	const email = form.elements.email.value;
+	const password = form.elements.password.value;
+	if (!email || !password) {
+    alert("Заповни поля");
+  } else {
+    // create object if smth input in form
+    obj[email] = form.elements.email.value;
+    obj[password] = form.elements.password.value;
   }
 	// log obj
 	console.log(obj);

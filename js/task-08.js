@@ -22,8 +22,8 @@ form.addEventListener('submit', (event) => {
     alert("Заповни поля");
   } else {
     // create object if smth input in form
-    obj[email] = form.elements.email.value;
-    obj[password] = form.elements.password.value;
+    obj[email] = email;
+    obj[password] = password;
   }
 	// log obj
 	console.log(obj);
